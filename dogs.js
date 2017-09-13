@@ -9,11 +9,16 @@ function add_wrong_answer(answers) {
     while(true) {
         var newBreed = get_random_breed();
 
-        if(answers.includes(newBreed)) {
+        if (answers.includes(newBreed)) {
             continue;
         }
 
-        answers.push(newBreed);
+        var answer = {
+            breed: newBreed,
+            correct: false
+        }
+
+        answers.push(answer);
         return;
     }
 }
@@ -21,7 +26,10 @@ function add_wrong_answer(answers) {
 function generate_answers(correct) {
     var answers = [];
     
-    answers.push(correct);
+    answers.push({
+        breed: correct,
+        correct: true
+    });
 
     add_wrong_answer(answers);
     add_wrong_answer(answers);
@@ -36,9 +44,20 @@ function show_answers(answers, breed) {
     $("#answers-container").empty();
 
     $.each(answers, (key, value) => {
-        var answer = `<li><button>${value}</button></li>`
+        var answerElement = $(`<button class="answer-button">${value.breed}</button>`);
 
-        $("#answers-container").append(answer);
+        if (value.correct) {
+            answerElement.click(() => {
+                console.log("correct!!");
+            });
+        }
+        else {
+            answerElement.click(() => {
+                console.log("incorrect!!");
+            });
+        }
+
+        var answerButton = $("#answers-container").append(answerElement);
     });
 }
 
@@ -57,8 +76,6 @@ $(document).ready(() => {
     $.get(dogApiRoot + "/api/breeds/list", (data) => {
         breeds = data.message;
 
-        $("#new-dog").click(() => {
-            new_dog();
-        });
+        new_dog();
     });
 });
