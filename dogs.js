@@ -1,13 +1,39 @@
 var dogApiRoot = "https://dog.ceo";
 var breeds = [];
 
-function get_random_breed() {
+var correctCount = 0;
+var incorrectCount = 0;
+
+var correctOrIncorrect;
+
+function getRandomBreed() {
     return breeds[Math.floor(Math.random()*breeds.length)];
 }
 
-function add_wrong_answer(answers) {
+function answered(correct) {
+    // Take off .correct & .incorrect
+    clearCorrectIncorrectClass();
+    
+    // Update UI & counts
+    if (correct) {
+        correctOrIncorrect.addClass("correct");
+        correctOrIncorrect.text("Correct!");
+
+        correctCount++;
+    }
+    else {
+        correctOrIncorrect.addClass("incorrect");
+        correctOrIncorrect.text("Incorrect!");              
+        
+        incorrectCount++;
+    }
+    
+    updateScore();   
+}
+
+function addWrongAnswer(answers) {
     while(true) {
-        var newBreed = get_random_breed();
+        var newBreed = getRandomBreed();
 
         if (answers.includes(newBreed)) {
             continue;
@@ -23,7 +49,12 @@ function add_wrong_answer(answers) {
     }
 }
 
-function generate_answers(correct) {
+function clearCorrectIncorrectClass() {
+    correctOrIncorrect.removeClass("correct");
+    correctOrIncorrect.removeClass("incorrect");
+}
+
+function generateAnswers(correct) {
     var answers = [];
     
     answers.push({
@@ -31,51 +62,53 @@ function generate_answers(correct) {
         correct: true
     });
 
-    add_wrong_answer(answers);
-    add_wrong_answer(answers);
-    add_wrong_answer(answers);
+    addWrongAnswer(answers);
+    addWrongAnswer(answers);
+    addWrongAnswer(answers);
 
     answers.shuffle();
 
     return answers;
 }
 
-function show_answers(answers, breed) {
+function updateScore() {
+    $("#score").text(`${correctCount}/${incorrectCount}`);
+}
+
+function showAnswers(answers, breed) {
     $("#answers-container").empty();
 
     $.each(answers, (key, value) => {
         var answerElement = $(`<button class="answer-button">${value.breed}</button>`);
 
         if (value.correct) {
-            answerElement.click(() => {
-                console.log("correct!!");
-            });
+            answerElement.click(() => answered(true));
         }
         else {
-            answerElement.click(() => {
-                console.log("incorrect!!");
-            });
+            answerElement.click(() => answered(false));
         }
 
         var answerButton = $("#answers-container").append(answerElement);
     });
 }
 
-function new_dog() {
-    var breed = get_random_breed();
+function newDog() {
+    var breed = getRandomBreed();
 
     $.get(dogApiRoot + `/api/breed/${breed}/images/random`, (data) => {
         var imageUrl = data.message;
         $("#img-dog").attr("src", imageUrl);
 
-        show_answers(generate_answers(breed));
+        showAnswers(generateAnswers(breed));
     });
 }
 
 $(document).ready(() => {
+    correctOrIncorrect = $("#correct-or-incorrect");
+    
     $.get(dogApiRoot + "/api/breeds/list", (data) => {
         breeds = data.message;
 
-        new_dog();
+        newDog();
     });
 });

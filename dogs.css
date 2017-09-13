@@ -12,3 +12,15 @@ body {
     width: 70%;
     margin: 0 auto;
 }
+
+#correct-or-incorrect {
+    font-size: 32px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
