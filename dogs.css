@@ -1,6 +1,7 @@
 img {
     height: 300px;
     margin: auto;
+    display: block;
 }
 
 header {
@@ -12,16 +13,49 @@ header {
     padding-bottom: 0.25em;
     height: 2.5rem;
 
-    background: #121212;
+    z-index: 9999;
+
+    background-color: #262626;        
 }
 
 main {
+    margin: 0 auto;
+    
     margin-top: 100px;
+    width: 50%;
+
+    left: 0;
+    right: 0;
+}
+
+body {
+    background-color: #191919;    
+}
+
+.animated-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("background.png");
+    background-repeat: repeat;
+
+    animation: animatedBackground 500s linear infinite;
+}
+
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -10000px 10000px;
+    }
 }
 
 .answer-button {
-    background-color: #B45BAE; /* Green */
     border: none;
+    background-color: #262626;    
     color: white;
     padding: 15px 32px;
     text-align: center;
@@ -36,7 +70,7 @@ main {
 }
 
 .answer-button:hover {
-    background-color: #AA40A3; /* Green */
+    background-color: #353535;
 }
 
 body {
@@ -57,5 +91,10 @@ body {
 }
 
 #score {
+    font-family: Arial;
     color: white;
+    font-size: 32px;
+    margin: 0;
+    float: right;
+    margin-right: 32px;
 }
