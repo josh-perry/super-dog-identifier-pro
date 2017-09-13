@@ -2,6 +2,8 @@ img {
     height: 300px;
     margin: auto;
     display: block;
+
+    margin-bottom: 64px;
 }
 
 header {
@@ -97,4 +99,13 @@ body {
     margin: 0;
     float: right;
     margin-right: 32px;
+}
+
+h1 {
+    font-family: Arial;
+    color: white;
+    font-size: 32px;
+    margin: 0;
+    float: left;
+    margin-left: 32px;
 }

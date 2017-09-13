@@ -58,7 +58,7 @@ function addWrongAnswer(answers) {
         }
 
         var answer = {
-            breed: newBreed,
+            breed: newBreed[0].toUpperCase() + newBreed.substr(1),
             correct: false
         }
 
@@ -76,7 +76,7 @@ function generateAnswers(correct) {
     var answers = [];
     
     answers.push({
-        breed: correct,
+        breed: correct[0].toUpperCase() + correct.substr(1),
         correct: true
     });
 
