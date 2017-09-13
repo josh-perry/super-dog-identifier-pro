@@ -72,14 +72,14 @@ function generateAnswers(correct) {
 }
 
 function updateScore() {
-    $("#score").text(`${correctCount}/${incorrectCount}`);
+    $("#score").text(`${correctCount}/10`);
 }
 
 function showAnswers(answers, breed) {
     $("#answers-container").empty();
 
     $.each(answers, (key, value) => {
-        var answerElement = $(`<button class="answer-button">${value.breed}</button>`);
+        var answerElement = $(`<button class="answer-button" href="#">${value.breed}</button>`);
 
         if (value.correct) {
             answerElement.click(() => answered(true));
