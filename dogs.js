@@ -3,6 +3,7 @@ var breeds = [];
 
 var correctCount = 0;
 var incorrectCount = 0;
+var totalCount = 0;
 
 var correctOrIncorrect;
 
@@ -28,7 +29,24 @@ function answered(correct) {
         incorrectCount++;
     }
     
-    updateScore();   
+    updateScore();
+
+    makeNextDogButton();
+}
+
+function makeNextDogButton() {
+    // Clear answers
+    $("#answers-container").empty();
+
+    var nextButton = $(`<button class="answer-button" href="#">Next dog!</button>`);
+    nextButton.click(() => {
+        $("#answers-container").empty();
+        correctOrIncorrect.text("");
+
+        newDog();
+    });
+    
+    $("#answers-container").append(nextButton);
 }
 
 function addWrongAnswer(answers) {
@@ -72,7 +90,8 @@ function generateAnswers(correct) {
 }
 
 function updateScore() {
-    $("#score").text(`${correctCount}/10`);
+    totalCount++;
+    $("#score").text(`${correctCount}/${totalCount}`);
 }
 
 function showAnswers(answers, breed) {
