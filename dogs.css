@@ -24,7 +24,6 @@ main {
     margin: 0 auto;
     
     margin-top: 100px;
-    width: 50%;
 
     left: 0;
     right: 0;
@@ -69,6 +68,8 @@ body {
     margin: 1px;
 
     display: block;
+
+    height: 10vh;
 }
 
 .answer-button:hover {
@@ -76,7 +77,6 @@ body {
 }
 
 body {
-    width: 70%;
     margin: 0 auto;
 }
 
@@ -90,6 +90,14 @@ body {
 
 .incorrect {
     color: red;
+}
+
+.correct-button {
+    background: green;
+}
+
+.incorrect-button {
+    background: red;
 }
 
 #score {
